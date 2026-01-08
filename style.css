@@ -161,6 +161,28 @@ body {
   font-weight: 300;
 }
 
+.info iframe {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* Desktop styles for iframe */
+@media (min-width: 769px) {
+  .info iframe {
+    width: 600px;
+    height: 450px;
+  }
+}
+
+@media (min-width: 992px) {
+  .info iframe {
+    width: 700px;
+    height: 500px;
+  }
+}
+
 .story,
 .gallery,
 .rsvp,
@@ -577,6 +599,11 @@ footer li {
     line-height: 1.1;
   }
 
+  .info iframe {
+    width: 100%;
+    height: 350px;
+  }
+
   .timeline li .timeline-image {
     width: 80px;
     height: 80px;
@@ -637,5 +664,10 @@ footer li {
     white-space: normal;
     font-size: 2.2rem;
     line-height: 1.1;
+  }
+
+  .info iframe {
+    width: 100%;
+    height: 300px;
   }
 }
