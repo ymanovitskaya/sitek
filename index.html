@@ -527,12 +527,16 @@
       // Select elements with the class "sticky-top" and "offcanvas"
       const stickyTop = document.querySelector(".sticky-top");
       const offcanvas = document.querySelector(".offcanvas");
+      const navbar = document.querySelector(".mynavbar");
 
       // Event listener for when the offcanvas is shown
       offcanvas.addEventListener("show.bs.offcanvas", function () {
         // Change the overflow style of the sticky-top element to 'visible'
         // This allows the sticky-top content to be fully displayed without being clipped
         stickyTop.style.overflow = "visible";
+        navbar.classList.add("navbar-open");
+        // Prevent body scroll when menu is open
+        document.body.classList.add("menu-open");
       });
 
       // Event listener for when the offcanvas is hidden
@@ -540,6 +544,9 @@
         // Change the overflow style of the sticky-top element to 'hidden'
         // This prevents the content from overflowing when the offcanvas is hidden
         stickyTop.style.overflow = "hidden";
+        navbar.classList.remove("navbar-open");
+        // Restore body scroll when menu is closed
+        document.body.classList.remove("menu-open");
       });
     </script>
 

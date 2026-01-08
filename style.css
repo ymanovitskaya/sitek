@@ -75,6 +75,17 @@ body {
   visibility: visible;
 }
 
+/* Fix for mobile menu overflow issues */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+.offcanvas-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* 
 .mynavbar .navbar-brand, .mynavbar .offcanvas-title: 
 This selector targets elements with the class .navbar-brand or .offcanvas-title 
@@ -543,7 +554,11 @@ footer li {
   }
 
   .sticky-top {
-    overflow: hidden;
+    overflow: visible !important;
+  }
+
+  .sticky-top.navbar-open {
+    overflow: visible !important;
   }
 
   .timeline li .timeline-image {
