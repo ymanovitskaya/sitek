@@ -39,32 +39,6 @@
       </main>
     </section>
 
-    <!-- OffCanvas NavBar-->
-    <nav class="navbar navbar-expand-md bg-transparent sticky-top mynavbar">
-      <div class="container">
-        <a class="navbar-brand" href="#">Zul</a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Zul</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <div class="navbar-nav ms-auto">
-              <a class="nav-link" href="#home">Home</a>
-              <a class="nav-link" href="#info">Info</a>
-              <a class="nav-link" href="#story">Story</a>
-              <a class="nav-link" href="#gallery">Gallery</a>
-              <a class="nav-link" href="#rsvp">RSVP</a>
-              <a class="nav-link" href="#gifts">Gifts</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
     <!-- Home -->
     <section id="home" class="home">
       <div class="container">
@@ -520,34 +494,6 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
       })();
-    </script>
-
-    <!-- Solve problem when the website change to mobile screen for NavBar -->
-    <script>
-      // Select elements with the class "sticky-top" and "offcanvas"
-      const stickyTop = document.querySelector(".sticky-top");
-      const offcanvas = document.querySelector(".offcanvas");
-      const navbar = document.querySelector(".mynavbar");
-
-      // Event listener for when the offcanvas is shown
-      offcanvas.addEventListener("show.bs.offcanvas", function () {
-        // Change the overflow style of the sticky-top element to 'visible'
-        // This allows the sticky-top content to be fully displayed without being clipped
-        stickyTop.style.overflow = "visible";
-        navbar.classList.add("navbar-open");
-        // Prevent body scroll when menu is open
-        document.body.classList.add("menu-open");
-      });
-
-      // Event listener for when the offcanvas is hidden
-      offcanvas.addEventListener("hidden.bs.offcanvas", function () {
-        // Change the overflow style of the sticky-top element to 'hidden'
-        // This prevents the content from overflowing when the offcanvas is hidden
-        stickyTop.style.overflow = "hidden";
-        navbar.classList.remove("navbar-open");
-        // Restore body scroll when menu is closed
-        document.body.classList.remove("menu-open");
-      });
     </script>
 
     <!-- JavaScript to control scroll behavior and audio playback -->
