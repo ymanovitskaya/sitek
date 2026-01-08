@@ -68,6 +68,11 @@ body {
 
 .mynavbar .offcanvas {
   height: 100vh;
+  width: 280px;
+}
+
+.mynavbar .offcanvas.show {
+  visibility: visible;
 }
 
 /* 
@@ -84,6 +89,14 @@ that are children of an element with the class .mynavbar.
 
 .mynavbar .nav-link {
   text-transform: uppercase;
+  font-size: 1.2rem;
+  padding: 0.8rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.mynavbar .nav-link:hover {
+  color: var(--pink);
+  transform: translateX(5px);
 }
 
 .home {
@@ -514,6 +527,19 @@ footer li {
   .mynavbar .nav-link {
     font-size: 2rem;
     text-align: center;
+    padding: 1rem 0;
+  }
+
+  .mynavbar .offcanvas {
+    width: 300px;
+  }
+
+  .mynavbar .offcanvas-body {
+    padding: 2rem 1rem;
+  }
+
+  .mynavbar .navbar-nav {
+    text-align: center;
   }
 
   .sticky-top {
@@ -611,6 +637,16 @@ footer li {
     font-size: 2.8rem;
     line-height: 1.1;
   }
+
+  .mynavbar .navbar-toggler {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .mynavbar .navbar-toggler-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 /* very small mobile phones */
@@ -667,5 +703,19 @@ footer li {
     white-space: normal;
     font-size: 2.2rem;
     line-height: 1.1;
+  }
+
+  .mynavbar .offcanvas {
+    width: 250px;
+  }
+
+  .mynavbar .nav-link {
+    font-size: 1.8rem;
+    padding: 0.8rem 0;
+  }
+
+  .mynavbar .navbar-brand,
+  .mynavbar .offcanvas-title {
+    font-size: 2.5rem;
   }
 }
