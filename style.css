@@ -81,6 +81,12 @@ body {
   font-weight: bold;
 }
 
+.info h2 {
+  color: white;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 300;
+}
+
 .home h3 {
   color: #444;
   font-size: 1.5rem;
@@ -128,10 +134,18 @@ body {
   color: white;
   padding-top: 10rem;
   padding-bottom: 8rem;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 300;
 }
 
 .info .alamat {
   font-size: 1.1rem;
+}
+
+.info .card-body {
+  font-size: 1rem;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 300;
 }
 
 .info .description {
@@ -149,6 +163,8 @@ body {
   border-bottom: 1px solid #999;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 300;
 }
 
 .info .card-body i {
@@ -163,6 +179,7 @@ body {
   border-top: 1px solid #999;
   font-size: 0.9rem;
   font-weight: 300;
+  font-family: 'Cormorant Infant', serif;
 }
 
 .info iframe {
