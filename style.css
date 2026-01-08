@@ -322,6 +322,7 @@ that are children of an element with the class .mynavbar.
 .rsvp h2 {
   font-size: 4.5rem;
   white-space: nowrap;
+  line-height: 1.1;
 }
 
 /* tablet */
@@ -329,7 +330,7 @@ that are children of an element with the class .mynavbar.
   .rsvp h2 {
     white-space: normal;
     font-size: 3.5rem;
-    line-height: 1.2;
+    line-height: 1.1;
   }
 }
 
@@ -608,7 +609,7 @@ footer li {
   .rsvp h2 {
     white-space: normal;
     font-size: 2.8rem;
-    line-height: 1.2;
+    line-height: 1.1;
   }
 }
 
@@ -665,6 +666,6 @@ footer li {
   .rsvp h2 {
     white-space: normal;
     font-size: 2.2rem;
-    line-height: 1.2;
+    line-height: 1.1;
   }
 }
