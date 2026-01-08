@@ -60,56 +60,6 @@ body {
   color: white;
 }
 
-/* !important supaya style tu yg digunakan */
-.mynavbar {
-  background-color: rgba(255, 255, 255, 0.3) !important;
-  backdrop-filter: blur(4px);
-}
-
-.mynavbar .offcanvas {
-  height: 100vh;
-  width: 280px;
-}
-
-.mynavbar .offcanvas.show {
-  visibility: visible;
-}
-
-/* Fix for mobile menu overflow issues */
-body.menu-open {
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
-}
-
-.offcanvas-backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* 
-.mynavbar .navbar-brand, .mynavbar .offcanvas-title: 
-This selector targets elements with the class .navbar-brand or .offcanvas-title 
-that are children of an element with the class .mynavbar.
-*/
-.mynavbar .navbar-brand,
-.mynavbar .offcanvas-title {
-  font-family: "Sacramento", cursive;
-  font-size: 3.2rem;
-  font-weight: bold;
-}
-
-.mynavbar .nav-link {
-  text-transform: uppercase;
-  font-size: 1.2rem;
-  padding: 0.8rem 1rem;
-  transition: all 0.3s ease;
-}
-
-.mynavbar .nav-link:hover {
-  color: var(--pink);
-  transform: translateX(5px);
-}
-
 .home {
   background-image: url(img/bg.png);
   background-size: cover;
@@ -535,32 +485,6 @@ footer li {
     padding: 0.8rem 1.5rem !important;
   }
 
-  .mynavbar .nav-link {
-    font-size: 2rem;
-    text-align: center;
-    padding: 1rem 0;
-  }
-
-  .mynavbar .offcanvas {
-    width: 300px;
-  }
-
-  .mynavbar .offcanvas-body {
-    padding: 2rem 1rem;
-  }
-
-  .mynavbar .navbar-nav {
-    text-align: center;
-  }
-
-  .sticky-top {
-    overflow: visible !important;
-  }
-
-  .sticky-top.navbar-open {
-    overflow: visible !important;
-  }
-
   .timeline li .timeline-image {
     width: 140px;
     height: 140px;
@@ -652,16 +576,6 @@ footer li {
     font-size: 2.8rem;
     line-height: 1.1;
   }
-
-  .mynavbar .navbar-toggler {
-    padding: 0.5rem;
-    font-size: 1.5rem;
-  }
-
-  .mynavbar .navbar-toggler-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
 }
 
 /* very small mobile phones */
@@ -718,19 +632,5 @@ footer li {
     white-space: normal;
     font-size: 2.2rem;
     line-height: 1.1;
-  }
-
-  .mynavbar .offcanvas {
-    width: 250px;
-  }
-
-  .mynavbar .nav-link {
-    font-size: 1.8rem;
-    padding: 0.8rem 0;
-  }
-
-  .mynavbar .navbar-brand,
-  .mynavbar .offcanvas-title {
-    font-size: 2.5rem;
   }
 }
