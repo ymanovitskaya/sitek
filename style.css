@@ -139,7 +139,7 @@ body {
 }
 
 .info .alamat {
-  font-size: 1.1rem;
+  font-size: 1.65rem;
 }
 
 .info .card-body {
@@ -169,6 +169,13 @@ body {
 
 .info .card-body i {
   margin-right: 1rem;
+}
+
+.info .btn {
+  padding: 0.75rem 2rem;
+  font-size: 1.25rem;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 300;
 }
 
 .info .card-body .d-inline {
