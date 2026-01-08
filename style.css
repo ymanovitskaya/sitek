@@ -324,6 +324,15 @@ that are children of an element with the class .mynavbar.
   white-space: nowrap;
 }
 
+/* tablet */
+@media (max-width: 768px) {
+  .rsvp h2 {
+    white-space: normal;
+    font-size: 3.5rem;
+    line-height: 1.2;
+  }
+}
+
 .rsvp p {
   color: white;
 }
@@ -595,6 +604,12 @@ footer li {
   .timeline li .timeline-panel::after {
     top: 31px;
   }
+
+  .rsvp h2 {
+    white-space: normal;
+    font-size: 2.8rem;
+    line-height: 1.2;
+  }
 }
 
 /* very small mobile phones */
@@ -645,5 +660,11 @@ footer li {
   .hero a {
     font-size: 1rem !important;
     padding: 0.5rem 1rem !important;
+  }
+
+  .rsvp h2 {
+    white-space: normal;
+    font-size: 2.2rem;
+    line-height: 1.2;
   }
 }
