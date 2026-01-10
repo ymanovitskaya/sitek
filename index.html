@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Le+Jardin:wght@400;500;600;700&family=Sacramento:wght@400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Le+Jardin:wght@400;500;600;700&family=Sacramento:wght@400&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- SimplyCountdown.js -->
     <link rel="stylesheet" href="countdown/simplyCountdown.theme.default.css" />
@@ -44,10 +44,10 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8 text-center">
-            <h2 style="font-family: 'Sacramento', cursive; font-size: 5rem; color: black;">Дорогой Гость!</h2>
+            <h2 style="font-family: 'Caveat', cursive; font-size: 5rem; color: black;">Дорогой Гость!</h2>
             <p style="font-family: 'Cormorant Infant', serif; font-weight: 300; color: black;">Мы рады сообщить Вам, что состоится самое главное торжество в нашей жизни - день нашей свадьбы!<br>Приглашаем Вас разделить с нами радость этого незабываемого дня.</p>
             <img src="img/wg.jpg" alt="Wedding decoration" style="max-width: 80%; height: auto; margin: 2rem auto; display: block; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-            <p style="font-family: 'Sacramento', cursive; font-size: 2.5rem; color: black; margin-top: 1.5rem; text-align: center;">Все начинается с любви</p>
+            <p style="font-family: 'Caveat', cursive; font-size: 2.5rem; color: black; margin-top: 1.5rem; text-align: center;">Все начинается с любви</p>
           </div>
         </div>
           <h2 style="font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 4rem; color: var(--pink); text-align: center; margin: 2rem 0;">МЕНЮ</h2>
@@ -60,9 +60,32 @@
           <p style="font-family: 'Cormorant Infant', serif; font-weight: 300; color: black; text-align: center; margin-bottom: 2rem;">Будем благодарны, если вы воздержитесь от слова "Горько" на празднике, ведь поцелуй — это знак выражения чувств, он не может быть по заказу.</p>
           <h2 style="font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 4rem; color: var(--pink); text-align: center; margin: 2rem 0;">ПОДТВЕРЖДЕНИЕ</h2>
           <p style="font-family: 'Cormorant Infant', serif; font-weight: 300; color: black; text-align: center; margin-bottom: 2rem;">Пожалуйста подтвердите свое присутствие до 01.05.2026</p>
-          <p style="font-family: 'Sacramento', cursive; font-size: 2.5rem; color: black; margin-top: 1.5rem; text-align: center;">Ждем Вас на нашей свадьбе!</p>
+          <p style="font-family: 'Caveat', cursive; font-size: 2.5rem; color: black; margin-top: 1.5rem; text-align: center;">Ждем Вас на нашей свадьбе!</p>
+          
+          <!-- Форма списка гостей -->
+          <div style="max-width: 700px; margin: 30px auto; padding: 0 15px;">
+            <h3 style="font-family: 'Cormorant Infant', serif; font-weight: 300; color: var(--pink); text-align: center; margin-bottom: 20px;">Список гостей</h3>
+            
+            <form id="guestForm">
+              <div id="guests-container" style="margin-bottom: 20px;">
+                <!-- Первый гость всегда присутствует -->
+                <div class="guest" data-index="0" style="border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 8px; background: #f9f9f9; position: relative;">
+                  <button type="button" class="remove-btn" onclick="removeGuest(this)" style="position: absolute; top: 10px; right: 10px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 16px; cursor: pointer; display: none;">×</button>
+                  <input type="text" name="firstName[]" placeholder="Имя" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                  <input type="text" name="lastName[]" placeholder="Фамилия" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                </div>
+              </div>
+              
+              <button type="button" onclick="addGuest()" style="padding: 10px 20px; margin: 8px 8px 8px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: var(--pink); color: white; border: none; border-radius: 5px; cursor: pointer;">+ Добавить гостя</button>
+              <br><br>
+              <button type="submit" style="padding: 10px 20px; margin: 8px 8px 8px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: var(--pink); color: white; border: none; border-radius: 5px; cursor: pointer;">Отправить в таблицу</button>
+            </form>
+            
+            <div id="status" style="text-align: center; margin-top: 20px; font-family: 'Cormorant Infant', serif; font-weight: 300;"></div>
+          </div>
         
       </div>
+    
     </section>
 
     <!-- Info about perkahwinan -->
@@ -533,6 +556,71 @@
           });
         });
       });
+    </script>
+    
+    <!-- JavaScript для формы списка гостей -->
+    <script>
+    // --------------------- Добавление гостя ---------------------
+    function addGuest() {
+      const container = document.getElementById('guests-container');
+      const index = container.children.length;
+      
+      const div = document.createElement('div');
+      div.className = 'guest';
+      div.dataset.index = index;
+      div.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 8px; background: #f9f9f9; position: relative;';
+      
+      div.innerHTML = `
+        <button type="button" class="remove-btn" onclick="removeGuest(this)" style="position: absolute; top: 10px; right: 10px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 16px; cursor: pointer;">×</button>
+        <input type="text" name="firstName[]" placeholder="Имя" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+        <input type="text" name="lastName[]" placeholder="Фамилия" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+      `;
+      
+      container.appendChild(div);
+    }
+
+    // --------------------- Удаление гостя ---------------------
+    function removeGuest(btn) {
+      btn.closest('.guest').remove();
+    }
+
+    // --------------------- Отправка в Google Sheets ---------------------
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwJM6hzO5IRTJuFOWVFahrsAzDhXmG2Orvr4VcQRsTZN8oqzbM8TMhVdH6a6EhUkcqq/exec';
+
+    document.getElementById('guestForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const status = document.getElementById('status');
+      status.textContent = 'Отправка...';
+      
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === 'success') {
+          status.style.color = 'green';
+          status.textContent = 'Гости успешно добавлены!';
+          form.reset();
+          // можно оставить только первого гостя
+          document.getElementById('guests-container').innerHTML = `
+            <div class="guest" data-index="0" style="border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 8px; background: #f9f9f9; position: relative;">
+              <input type="text" name="firstName[]" placeholder="Имя" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+              <input type="text" name="lastName[]" placeholder="Фамилия" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+            </div>
+          `;
+        } else {
+          throw new Error(data.error || 'Неизвестная ошибка');
+        }
+      })
+      .catch(error => {
+        status.style.color = 'red';
+        status.textContent = 'Ошибка: ' + error.message;
+        console.error('Ошибка:', error);
+      });
+    });
     </script>
   </body>
 </html>
