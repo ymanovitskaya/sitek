@@ -463,8 +463,10 @@
         // Если выбрано "Другое" и заполнено текстовое поле, отправляем текст
         if (foodPref.value === 'Другое' && foodOther && foodOther.value) {
           formData.append('food_preference', foodOther.value);
+          console.log('Отправляем food_preference:', foodOther.value);
         } else {
           formData.append('food_preference', foodPref.value);
+          console.log('Отправляем food_preference:', foodPref.value);
         }
       }
       
@@ -472,9 +474,17 @@
         // Если выбрано "Другое" и заполнено текстовое поле, отправляем текст
         if (alcoholPref.value === 'Другое' && alcoholOther && alcoholOther.value) {
           formData.append('alcohol_preference', alcoholOther.value);
+          console.log('Отправляем alcohol_preference:', alcoholOther.value);
         } else {
           formData.append('alcohol_preference', alcoholPref.value);
+          console.log('Отправляем alcohol_preference:', alcoholPref.value);
         }
+      }
+      
+      // Выводим все данные формы для отладки
+      console.log('Все данные формы:');
+      for (let [key, value] of formData.entries()) {
+        console.log(key + ':', value);
       }
       
       fetch(scriptURL, {
