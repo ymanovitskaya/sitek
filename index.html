@@ -78,6 +78,44 @@
               </div>
               
               <button type="button" onclick="addGuest()" style="padding: 22.5px 45px; margin: 12px 12px 12px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: black; color: white; border: none; border-radius: 7.5px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; font-size: 1.5rem;">+ Добавить гостя</button>
+              
+              <!-- Вопросы о предпочтениях по еде и алкоголю -->
+              <div style="margin: 2.5rem 0; padding: 1.5rem; background: #f9f9f9; border-radius: 10px; border: 1px solid #eee;">
+                <h3 style="margin-top: 0; color: #333; font-family: 'Cormorant Infant', serif; font-weight: 300;">Ваши предпочтения</h3>
+
+                <!-- Вопрос 1: Предпочтения по еде -->
+                <div style="margin-bottom: 1.5rem;">
+                  <label style="display: block; margin-bottom: 0.6rem; font-weight: 500; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                    Есть ли у вас особые предпочтения по еде?
+                  </label>
+                  <select name="food_preference" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                    <option value="">Выберите вариант...</option>
+                    <option value="Нет особых предпочтений">Нет особых предпочтений</option>
+                    <option value="Не ем мясо">Не ем мясо</option>
+                    <option value="Не ем рыбу">Не ем рыбу</option>
+                    <option value="Вегетарианец">Вегетарианец</option>
+                    <option value="Другое (напишите в комментариях)">Другое</option>
+                  </select>
+                </div>
+
+                <!-- Вопрос 2: Алкоголь -->
+                <div>
+                  <label style="display: block; margin-bottom: 0.6rem; font-weight: 500; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                    Какой алкоголь вы предпочитаете?
+                  </label>
+                  <select name="alcohol_preference" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                    <option value="">Выберите вариант...</option>
+                    <option value="Красное вино">Красное вино</option>
+                    <option value="Белое вино">Белое вино</option>
+                    <option value="Шампанское">Шампанское</option>
+                    <option value="Виски/коньяк">Виски/коньяк</option>
+                    <option value="Водка">Водка</option>
+                    <option value="Не буду пить алкоголь">Не буду пить алкоголь</option>
+                    <option value="Другое">Другое</option>
+                  </select>
+                </div>
+              </div>
+              
               <button type="submit" style="padding: 22.5px 45px; margin: 12px 12px 12px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: black; color: white; border: none; border-radius: 7.5px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; font-size: 1.5rem;">Отправить</button>
             </form>
             
