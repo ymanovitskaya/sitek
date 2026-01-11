@@ -444,84 +444,71 @@
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyva1_Xks-tIcfOlte_oDtWPA6GGEdyE8UkB_fglyufMtjKAGfwQ-PR8AI63qwgegRy/exec';
 
     document.getElementById('guestForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const form = this;
-      const status = document.getElementById('status');
-      status.textContent = 'Отправка...';
-      
-      // Собираем все данные формы включая поля предпочтений
-      const formData = new FormData(form);
-      
-      // Добавляем данные о предпочтениях, если они есть
-      const foodPref = form.querySelector('select[name="food_preference"]');
-      const alcoholPref = form.querySelector('select[name="alcohol_preference"]');
-      const foodOther = form.querySelector('input[name="food_other"]');
-      const alcoholOther = form.querySelector('input[name="alcohol_other"]');
-      
-      if (foodPref && foodPref.value) {
-        // Если выбрано "Другое" и заполнено текстовое поле, отправляем текст
-        if (foodPref.value === 'Другое' && foodOther && foodOther.value) {
-          formData.append('food_preference', foodOther.value);
-          console.log('Отправляем food_preference:', foodOther.value);
-        } else {
-          formData.append('food_preference', foodPref.value);
-          console.log('Отправляем food_preference:', foodPref.value);
-        }
-      }
-      
-      if (alcoholPref && alcoholPref.value) {
-        // Если выбрано "Другое" и заполнено текстовое поле, отправляем текст
-        if (alcoholPref.value === 'Другое' && alcoholOther && alcoholOther.value) {
-          formData.append('alcohol_preference', alcoholOther.value);
-          console.log('Отправляем alcohol_preference:', alcoholOther.value);
-        } else {
-          formData.append('alcohol_preference', alcoholPref.value);
-          console.log('Отправляем alcohol_preference:', alcoholPref.value);
-        }
-      }
-      
-      // Выводим все данные формы для отладки
-      console.log('Все данные формы:');
-      for (let [key, value] of formData.entries()) {
-        console.log(key + ':', value);
-      }
-      
-      fetch(scriptURL, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Ответ не OK: ' + response.status);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        if (data.result === 'success') {
-          status.style.color = 'green';
-          status.textContent = 'Гости успешно добавлены!';
-          form.reset();
-          // Сбрасываем поля предпочтений и скрываем поля "Другое"
-          if (foodPref) {
-            foodPref.value = '';
-            toggleFoodOther();
-          }
-          if (alcoholPref) {
-            alcoholPref.value = '';
-            toggleAlcoholOther();
-          }
-        } else {
-          throw new Error(data.error || 'Неизвестная ошибка');
-        }
-      })
-      .catch(error => {
-        status.style.color = 'red';
-        status.textContent = 'Ошибка: ' + error.message;
-        console.error('Ошибка:', error);
-      });
-    });
+  e.preventDefault();
+  
+  const form = this;
+  const status = document.getElementById('status');
+  status.textContent = 'Отправка...';
+
+  const formData = new FormData(form);
+
+  // ── Обработка еды ───────────────────────────────────────────────
+  const foodSelect = form.querySelector('#food_preference');
+  const foodOther  = form.querySelector('#food_other_container input');
+
+  if (foodSelect?.value) {
+    if (foodSelect.value === 'Другое' && foodOther?.value.trim()) {
+      formData.set('food_preference', foodOther.value.trim());  // ← перезаписываем!
+      formData.delete('food_other');                           // убираем мусор
+    } else {
+      formData.set('food_preference', foodSelect.value);
+    }
+  }
+
+  // ── Обработка алкоголя ──────────────────────────────────────────
+  const alcoholSelect = form.querySelector('#alcohol_preference');
+  const alcoholOther  = form.querySelector('#alcohol_other_container input');
+
+  if (alcoholSelect?.value) {
+    if (alcoholSelect.value === 'Другое' && alcoholOther?.value.trim()) {
+      formData.set('alcohol_preference', alcoholOther.value.trim());
+      formData.delete('alcohol_other');
+    } else {
+      formData.set('alcohol_preference', alcoholSelect.value);
+    }
+  }
+
+  // Для отладки (можно потом убрать)
+  console.log('Отправляем в Google Sheets:');
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+
+  fetch(scriptURL, {
+    method: 'POST',
+    body: formData
+  })
+  .then(r => {
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  })
+  .then(data => {
+    if (data.result === 'success') {
+      status.style.color = 'green';
+      status.textContent = 'Гости успешно добавлены!';
+      form.reset();
+      toggleFoodOther();
+      toggleAlcoholOther();
+    } else {
+      throw new Error(data.error || 'Неизвестный ответ');
+    }
+  })
+  .catch(err => {
+    status.style.color = 'red';
+    status.textContent = 'Ошибка: ' + err.message;
+    console.error(err);
+  });
+});
     </script>
   </body>
 </html>
