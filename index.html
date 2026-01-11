@@ -172,60 +172,13 @@
     </section>
     <!-- End Info -->
 
-    <!-- Gift -->
-    <section id="gifts" class="gifts">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-10 text-center">
-            <span>EXPRESSION OF LOVE</span>
-            <h2>Send Gifts</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam iure perferendis provident ab aliquam nemo.</p>
-          </div>
-        </div>
-
-        <div class="row justify-content-center text-center">
-          <div class="col-md-6">
-            <ul class="list-group">
-              <li class="list-group-item">
-                <div class="fw-bold">CIMB BANK</div>
-                1234567 - ZULHUSNI
-              </li>
-              <li class="list-group-item">
-                <div class="fw-bold">QR Code</div>
-                <img src="https://img.freepik.com/premium-vector/qr-code-cartoon-character-doing-wave-hand-gesture-cute-design_152558-13573.jpg" alt="QR" class="img-thumbnail" width="150" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Gift End -->
-
     <!-- Footer -->
     <footer>
       <div class="container">
         <div class="row">
           <div class="col text-center">
-            <small class="block">&copy; 2023 Zul Wedding. All Rights Reserved.</small>
-            <small class="block">Design by <a href="https://instagram.com/zlhsny._" target="_blank">@zulhusni</a>.</small>
+            <small class="block">Design by Arseniy Zaitsev.</small>
 
-            <ul class="mt-3">
-              <li>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="bi bi-youtube"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="bi bi-twitter"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="bi bi-tiktok"></i></a>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -507,18 +460,20 @@
       const alcoholOther = form.querySelector('input[name="alcohol_other"]');
       
       if (foodPref && foodPref.value) {
-        formData.append('food_preference', foodPref.value);
-        // Если выбрано "Другое", добавляем текстовое поле
+        // Если выбрано "Другое" и заполнено текстовое поле, отправляем текст
         if (foodPref.value === 'Другое' && foodOther && foodOther.value) {
-          formData.append('food_other', foodOther.value);
+          formData.append('food_preference', foodOther.value);
+        } else {
+          formData.append('food_preference', foodPref.value);
         }
       }
       
       if (alcoholPref && alcoholPref.value) {
-        formData.append('alcohol_preference', alcoholPref.value);
-        // Если выбрано "Другое", добавляем текстовое поле
+        // Если выбрано "Другое" и заполнено текстовое поле, отправляем текст
         if (alcoholPref.value === 'Другое' && alcoholOther && alcoholOther.value) {
-          formData.append('alcohol_other', alcoholOther.value);
+          formData.append('alcohol_preference', alcoholOther.value);
+        } else {
+          formData.append('alcohol_preference', alcoholPref.value);
         }
       }
       
