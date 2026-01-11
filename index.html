@@ -633,23 +633,40 @@
       const status = document.getElementById('status');
       status.textContent = 'Отправка...';
       
+      // Собираем все данные формы включая поля предпочтений
+      const formData = new FormData(form);
+      
+      // Добавляем данные о предпочтениях, если они есть
+      const foodPref = form.querySelector('select[name="food_preference"]');
+      const alcoholPref = form.querySelector('select[name="alcohol_preference"]');
+      
+      if (foodPref && foodPref.value) {
+        formData.append('food_preference', foodPref.value);
+      }
+      
+      if (alcoholPref && alcoholPref.value) {
+        formData.append('alcohol_preference', alcoholPref.value);
+      }
+      
       fetch(scriptURL, {
         method: 'POST',
-        body: new FormData(form)
+        mode: 'no-cors', // Добавляем для решения проблем с CORS
+        body: formData
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         if (data.result === 'success') {
           status.style.color = 'green';
           status.textContent = 'Гости успешно добавлены!';
           form.reset();
-          // можно оставить только первого гостя
-          document.getElementById('guests-container').innerHTML = `
-            <div class="guest" data-index="0" style="border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 8px; background: #f9f9f9; position: relative;">
-              <input type="text" name="firstName[]" placeholder="Имя" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
-              <input type="text" name="lastName[]" placeholder="Фамилия" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
-            </div>
-          `;
+          // Сбрасываем поля предпочтений
+          if (foodPref) foodPref.value = '';
+          if (alcoholPref) alcoholPref.value = '';
         } else {
           throw new Error(data.error || 'Неизвестная ошибка');
         }
