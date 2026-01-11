@@ -650,16 +650,16 @@
       
       fetch(scriptURL, {
         method: 'POST',
-        mode: 'no-cors', // Добавляем для решения проблем с CORS
         body: formData
       })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Ответ не OK: ' + response.status);
         }
         return response.json();
       })
       .then(data => {
+        console.log(data);
         if (data.result === 'success') {
           status.style.color = 'green';
           status.textContent = 'Гости успешно добавлены!';
