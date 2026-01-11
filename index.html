@@ -65,7 +65,6 @@
           
           <!-- Форма списка гостей -->
           <div style="max-width: 1050px; margin: 45px auto; padding: 0 22.5px;">
-            <h3 style="font-family: 'Cormorant Infant', serif; font-weight: 300; color: var(--pink); text-align: center; margin-bottom: 30px; font-size: 3rem;">Список гостей</h3>
             
             <form id="guestForm">
               <div id="guests-container" style="margin-bottom: 30px;">
@@ -77,33 +76,36 @@
                 </div>
               </div>
               
-              <button type="button" onclick="addGuest()" style="padding: 22.5px 45px; margin: 12px 12px 12px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: black; color: white; border: none; border-radius: 7.5px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; font-size: 1.5rem;">+ Добавить гостя</button>
+              <button type="button" onclick="addGuest()" style="padding: 18px 36px; margin: 12px 12px 12px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: black; color: white; border: none; border-radius: 6px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; font-size: 1.5rem;">+ Добавить гостя</button>
               
               <!-- Вопросы о предпочтениях по еде и алкоголю -->
-              <div style="margin: 2.5rem 0; padding: 1.5rem; background: #f9f9f9; border-radius: 10px; border: 1px solid #eee;">
-                <h3 style="margin-top: 0; color: #333; font-family: 'Cormorant Infant', serif; font-weight: 300;">Ваши предпочтения</h3>
+              <div style="margin: 3.75rem 0; padding: 2.25rem; background: #f9f9f9; border-radius: 15px; border: 1.5px solid #eee;">
+                <h3 style="margin-top: 0; color: #333; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 2.25rem;">Ваши предпочтения</h3>
 
                 <!-- Вопрос 1: Предпочтения по еде -->
-                <div style="margin-bottom: 1.5rem;">
-                  <label style="display: block; margin-bottom: 0.6rem; font-weight: 500; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                <div style="margin-bottom: 2.25rem;">
+                  <label style="display: block; margin-bottom: 0.9rem; font-weight: 500; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
                     Есть ли у вас особые предпочтения по еде?
                   </label>
-                  <select name="food_preference" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                  <select name="food_preference" id="food_preference" onchange="toggleFoodOther()" style="width: 100%; padding: 15px; border-radius: 9px; border: 1.5px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
                     <option value="">Выберите вариант...</option>
                     <option value="Нет особых предпочтений">Нет особых предпочтений</option>
                     <option value="Не ем мясо">Не ем мясо</option>
                     <option value="Не ем рыбу">Не ем рыбу</option>
                     <option value="Вегетарианец">Вегетарианец</option>
-                    <option value="Другое (напишите в комментариях)">Другое</option>
+                    <option value="Другое">Другое</option>
                   </select>
+                  <div id="food_other_container" style="display: none; margin-top: 15px;">
+                    <input type="text" name="food_other" placeholder="Укажите ваши предпочтения" style="width: 100%; padding: 15px; border-radius: 9px; border: 1.5px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
+                  </div>
                 </div>
 
                 <!-- Вопрос 2: Алкоголь -->
                 <div>
-                  <label style="display: block; margin-bottom: 0.6rem; font-weight: 500; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                  <label style="display: block; margin-bottom: 0.9rem; font-weight: 500; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
                     Какой алкоголь вы предпочитаете?
                   </label>
-                  <select name="alcohol_preference" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+                  <select name="alcohol_preference" id="alcohol_preference" onchange="toggleAlcoholOther()" style="width: 100%; padding: 15px; border-radius: 9px; border: 1.5px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
                     <option value="">Выберите вариант...</option>
                     <option value="Красное вино">Красное вино</option>
                     <option value="Белое вино">Белое вино</option>
@@ -113,10 +115,13 @@
                     <option value="Не буду пить алкоголь">Не буду пить алкоголь</option>
                     <option value="Другое">Другое</option>
                   </select>
+                  <div id="alcohol_other_container" style="display: none; margin-top: 15px;">
+                    <input type="text" name="alcohol_other" placeholder="Укажите ваши предпочтения" style="width: 100%; padding: 15px; border-radius: 9px; border: 1.5px solid #ccc; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
+                  </div>
                 </div>
               </div>
               
-              <button type="submit" style="padding: 22.5px 45px; margin: 12px 12px 12px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: black; color: white; border: none; border-radius: 7.5px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; font-size: 1.5rem;">Отправить</button>
+              <button type="submit" style="padding: 18px 36px; margin: 12px 12px 12px 0; font-family: 'Cormorant Infant', serif; font-weight: 300; background: black; color: white; border: none; border-radius: 6px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; font-size: 1.5rem;">Отправить</button>
             </form>
             
             <div id="status" style="text-align: center; margin-top: 30px; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;"></div>
@@ -143,8 +148,6 @@
         </div>
 
         <div class="row justify-content-center mt-4">
-          
-          </div>
           <div class="col-md-5 col-10">
             <div class="card text-center text-bg-light">
               <div class="card-header">Торжество</div>
@@ -161,177 +164,13 @@
                 </div>
                 </div>
                 <div class="card-footer">Здесь пройдет наша регистрация. Приглашаем всех разделить с нами такой торжественный момент.</div>
-              
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
     <!-- End Info -->
-
-    <!-- Story section -->
-    <section id="story" class="story">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-10 text-center">
-            <span>How Our Love Bloomed</span>
-            <h2>Our Story</h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, similique non soluta nulla asperiores voluptatem.</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <ul class="timeline">
-              <li>
-                <div class="timeline-image" style="background-image: url(https://picsum.photos/302/302)"></div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h3>First meeting</h3>
-                    <span>1 Juni 2000</span>
-                  </div>
-                  <div class="timeline-body">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, modi autem? Commodi autem quo quia?</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image" style="background-image: url(https://picsum.photos/300/300)"></div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h3>Get serious</h3>
-                    <span>1 Januari 2005</span>
-                  </div>
-                  <div class="timeline-body">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto enim eaque obcaecati odit itaque explicabo quisquam quos at.</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="timeline-image" style="background-image: url(https://picsum.photos/301/301)"></div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h3>Fiance</h3>
-                    <span>7 November 2009</span>
-                  </div>
-                  <div class="timeline-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, deleniti distinctio. Esse quas sit explicabo corporis magni qui expedita a.</div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Story section End -->
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-      <!-- Container to hold the gallery content -->
-      <div class="container">
-        <!-- Row for the gallery title and description, centered in the middle -->
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-10 text-center">
-            <!-- Subtitle and heading for the gallery -->
-            <span>Our Memories</span>
-            <h2>Gallery</h2>
-            <!-- Description text under the heading -->
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, itaque?</p>
-          </div>
-        </div>
-
-        <!-- Row for the gallery images, with responsive column classes -->
-        <!-- The column classes control how many images are displayed per row based on screen size -->
-        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 justify-content-center">
-          <!-- Individual gallery item, repeated for each image -->
-          <div class="col mt-3">
-            <!-- Anchor tag for lightbox effect, linking to a larger version of the image -->
-            <a href="https://picsum.photos/id/300/1200/768" data-toggle="lightbox" data-caption="1" data-gallery="mygallery">
-              <!-- Image thumbnail, set to be fluid, full width, and rounded -->
-              <img src="https://picsum.photos/id/300/300/400" alt="1" class="img-fluid w-100 rounded" />
-            </a>
-          </div>
-
-          <!-- Repeat for each gallery item, changing the image source, caption, and lightbox attributes -->
-          <div class="col mt-3">
-            <a href="https://picsum.photos/id/300/1200/768" data-toggle="lightbox" data-caption="2" data-gallery="mygallery">
-              <img src="https://picsum.photos/id/300/300/400" alt="2" class="img-fluid w-100 rounded" />
-            </a>
-          </div>
-          <div class="col mt-3">
-            <a href="https://picsum.photos/id/301/1200/768" data-toggle="lightbox" data-caption="3" data-gallery="mygallery">
-              <img src="https://picsum.photos/id/301/300/400" alt="3" class="img-fluid w-100 rounded" />
-            </a>
-          </div>
-          <div class="col mt-3">
-            <a href="https://picsum.photos/id/302/1200/768" data-toggle="lightbox" data-caption="4" data-gallery="mygallery">
-              <img src="https://picsum.photos/id/302/300/400" alt="4" class="img-fluid w-100 rounded" />
-            </a>
-          </div>
-          <div class="col mt-3">
-            <a href="https://picsum.photos/id/304/1200/768" data-toggle="lightbox" data-caption="5" data-gallery="mygallery">
-              <img src="https://picsum.photos/id/304/300/400" alt="5" class="img-fluid w-100 rounded" />
-            </a>
-          </div>
-          <div class="col mt-3">
-            <a href="https://picsum.photos/id/305/1200/768" data-toggle="lightbox" data-caption="6" data-gallery="mygallery">
-              <img src="https://picsum.photos/id/305/300/400" alt="6" class="img-fluid w-100 rounded" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Gallery Section End -->
-
-    <!-- Attendance form section -->
-    <section id="rsvp" class="rsvp">
-      <div class="container">
-        <div class="row justify-content-center">
-          <!-- Column for the title and description of the form -->
-          <div class="col-md-8 col-10 text-center">
-            <h2>Confirmation<br>of Attendance</h2>
-            <p>Fill out the form below to confirm attendance.</p>
-          </div>
-        </div>
-
-        <!-- Form for attendance confirmation -->
-        <!-- The form uses POST method to send data to a Google Script URL -->
-        <form class="row row-cols-md-auto g-3 align-items-center justify-content-center" method="POST" action="https://script.google.com/macros/s/AKfycbxccgG4ZLJLrIbxq-0r62c_cWDBEIWxwRkNIO3DHLKWkvXyj9ms_ShaBV1cEnOkpZIE/exec" id="my-form">
-          <!-- Input field for Name -->
-          <div class="col-12">
-            <div class="mb-3">
-              <label for="nama" class="form-label">Name</label>
-              <input type="text" class="form-control" id="nama" name="nama" />
-            </div>
-          </div>
-
-          <!-- Input field for Total (number of attendees) -->
-          <div class="col-12">
-            <div class="mb-3">
-              <label for="jumlah" class="form-label">Total</label>
-              <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" max="5" length="1" value="1" />
-            </div>
-          </div>
-
-          <!-- Dropdown for confirming attendance status -->
-          <div class="col-12">
-            <div class="mb-3">
-              <label for="status" class="form-label">Confirm</label>
-              <select name="status" id="status" class="form-select">
-                <option selected>Choose</option>
-                <option value="Hadir">Attend</option>
-                <option value="Tidak Hadir">Absent</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Submit button to send the form data -->
-          <div class="col-12" style="margin-top: 35px">
-            <button class="btn btn-primary">Send</button>
-          </div>
-        </form>
-      </div>
-    </section>
-    <!-- Attendance form end -->
 
     <!-- Gift -->
     <section id="gifts" class="gifts">
@@ -599,6 +438,31 @@
     
     <!-- JavaScript для формы списка гостей -->
     <script>
+    // --------------------- Функции для отображения полей "Другое" ---------------------
+    function toggleFoodOther() {
+      const select = document.getElementById('food_preference');
+      const container = document.getElementById('food_other_container');
+      
+      if (select.value === 'Другое') {
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
+        container.querySelector('input').value = '';
+      }
+    }
+
+    function toggleAlcoholOther() {
+      const select = document.getElementById('alcohol_preference');
+      const container = document.getElementById('alcohol_other_container');
+      
+      if (select.value === 'Другое') {
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
+        container.querySelector('input').value = '';
+      }
+    }
+
     // --------------------- Добавление гостя ---------------------
     function addGuest() {
       const container = document.getElementById('guests-container');
@@ -607,12 +471,12 @@
       const div = document.createElement('div');
       div.className = 'guest';
       div.dataset.index = index;
-      div.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 8px; background: #f9f9f9; position: relative;';
+      div.style.cssText = 'border: 1.5px solid #ddd; padding: 22.5px; margin: 22.5px 0; border-radius: 12px; background: #f9f9f9; position: relative;';
       
       div.innerHTML = `
-        <button type="button" class="remove-btn" onclick="removeGuest(this)" style="position: absolute; top: 10px; right: 10px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 16px; cursor: pointer;">×</button>
-        <input type="text" name="firstName[]" placeholder="Имя" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
-        <input type="text" name="lastName[]" placeholder="Фамилия" required style="width: 48%; padding: 8px; margin: 6px 1% 6px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300;">
+        <button type="button" class="remove-btn" onclick="removeGuest(this)" style="position: absolute; top: 15px; right: 15px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 24px; cursor: pointer;">×</button>
+        <input type="text" name="firstName[]" placeholder="Имя" required style="width: 48%; padding: 12px; margin: 9px 1% 9px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
+        <input type="text" name="lastName[]" placeholder="Фамилия" required style="width: 48%; padding: 12px; margin: 9px 1% 9px 0; box-sizing: border-box; font-family: 'Cormorant Infant', serif; font-weight: 300; font-size: 1.5rem;">
       `;
       
       container.appendChild(div);
@@ -639,13 +503,23 @@
       // Добавляем данные о предпочтениях, если они есть
       const foodPref = form.querySelector('select[name="food_preference"]');
       const alcoholPref = form.querySelector('select[name="alcohol_preference"]');
+      const foodOther = form.querySelector('input[name="food_other"]');
+      const alcoholOther = form.querySelector('input[name="alcohol_other"]');
       
       if (foodPref && foodPref.value) {
         formData.append('food_preference', foodPref.value);
+        // Если выбрано "Другое", добавляем текстовое поле
+        if (foodPref.value === 'Другое' && foodOther && foodOther.value) {
+          formData.append('food_other', foodOther.value);
+        }
       }
       
       if (alcoholPref && alcoholPref.value) {
         formData.append('alcohol_preference', alcoholPref.value);
+        // Если выбрано "Другое", добавляем текстовое поле
+        if (alcoholPref.value === 'Другое' && alcoholOther && alcoholOther.value) {
+          formData.append('alcohol_other', alcoholOther.value);
+        }
       }
       
       fetch(scriptURL, {
@@ -664,9 +538,15 @@
           status.style.color = 'green';
           status.textContent = 'Гости успешно добавлены!';
           form.reset();
-          // Сбрасываем поля предпочтений
-          if (foodPref) foodPref.value = '';
-          if (alcoholPref) alcoholPref.value = '';
+          // Сбрасываем поля предпочтений и скрываем поля "Другое"
+          if (foodPref) {
+            foodPref.value = '';
+            toggleFoodOther();
+          }
+          if (alcoholPref) {
+            alcoholPref.value = '';
+            toggleAlcoholOther();
+          }
         } else {
           throw new Error(data.error || 'Неизвестная ошибка');
         }
