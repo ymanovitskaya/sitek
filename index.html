@@ -414,9 +414,10 @@
     }
 
     // --------------------- Отправка в Google Sheets ---------------------
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxIAGR3UXb6Pnt7gr0srCMUpurEyQfcsqzwaiTzOSTJY1vFSAmbswqOE_aUdwZMRw3e/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwqtB00oIhQm4HkTYqHb9Wz6QdxRm7ZGpiDZEqNp926lcpx4vVMCRk0wSOfTlq4uw/exec';
 
-    document.getElementById('guestForm').addEventListener('submit', function(e) {
+    // Исправленная отправка формы
+document.getElementById('guestForm').addEventListener('submit', function(e) {
   e.preventDefault();
   
   const form = this;
@@ -424,59 +425,68 @@
   status.textContent = 'Отправка...';
   status.style.color = 'black';
 
-  // Собираем данные формы
-  const formData = new URLSearchParams();
+  // Собираем данные
+  const formData = new FormData(form);
   
-  // Собираем гостей
-  const firstNames = form.querySelectorAll('input[name="firstName[]"]');
-  const lastNames = form.querySelectorAll('input[name="lastName[]"]');
+  // Для отладки - показываем что собираем
+  console.log('Собираем данные:');
   
-  for (let i = 0; i < firstNames.length; i++) {
-    formData.append('firstName[]', firstNames[i].value);
-    formData.append('lastName[]', lastNames[i].value);
+  // Преобразуем FormData в обычный объект для наглядности
+  const data = {};
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+    
+    // Для массивов собираем все значения
+    if (key.endsWith('[]')) {
+      if (!data[key]) data[key] = [];
+      data[key].push(value);
+    } else {
+      data[key] = value;
+    }
   }
   
-  // Добавляем предпочтения
-  const foodSelect = form.querySelector('#food_preference');
-  const foodOther = form.querySelector('#food_other_container input');
-  let foodValue = foodSelect.value;
-  
-  if (foodSelect.value === 'Другое' && foodOther && foodOther.value.trim()) {
-    foodValue = foodOther.value.trim();
-  }
-  
-  const alcoholSelect = form.querySelector('#alcohol_preference');
-  const alcoholOther = form.querySelector('#alcohol_other_container input');
-  let alcoholValue = alcoholSelect.value;
-  
-  if (alcoholSelect.value === 'Другое' && alcoholOther && alcoholOther.value.trim()) {
-    alcoholValue = alcoholOther.value.trim();
-  }
-  
-  if (foodValue) formData.append('food_preference', foodValue);
-  if (alcoholValue) formData.append('alcohol_preference', alcoholValue);
-
-  // Отправка
+  // Отправляем данные
   fetch(scriptURL, {
     method: 'POST',
     body: formData
   })
-  .then(r => r.json())
+  .then(response => {
+    console.log('Получен ответ от сервера');
+    return response.json();
+  })
   .then(data => {
+    console.log('Ответ:', data);
     if (data.result === 'success') {
       status.style.color = 'green';
-      status.textContent = data.message || 'Гости успешно добавлены!';
-      form.reset();
+      status.textContent = data.message || `Успешно добавлено ${data.count || 0} гостей!`;
+      
+      // Сброс формы, но оставляем первого гостя
+      const container = document.getElementById('guests-container');
+      while (container.children.length > 1) {
+        container.removeChild(container.lastChild);
+      }
+      
+      // Сбрасываем поля первого гостя
+      const firstGuest = container.children[0];
+      firstGuest.querySelector('input[name="firstName[]"]').value = '';
+      firstGuest.querySelector('input[name="lastName[]"]').value = '';
+      
+      // Сбрасываем селекты
+      form.querySelector('#food_preference').value = '';
+      form.querySelector('#alcohol_preference').value = '';
+      
+      // Скрываем поля "Другое"
       toggleFoodOther();
       toggleAlcoholOther();
+      
     } else {
-      throw new Error(data.message || 'Неизвестная ошибка');
+      throw new Error(data.message || 'Ошибка сервера');
     }
   })
   .catch(err => {
+    console.error('Ошибка отправки:', err);
     status.style.color = 'red';
     status.textContent = 'Ошибка: ' + err.message;
-    console.error(err);
   });
 });
     </script>
