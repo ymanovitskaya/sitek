@@ -360,34 +360,7 @@
     </script>
 
     <!-- The user isn't redirected to the webapp after submit form -->
-    <script>
-      // Wait until the entire page is fully loaded
-      window.addEventListener("load", function () {
-        // Select the form element with the ID "my-form"
-        const form = document.getElementById("my-form");
-
-        // Add an event listener for the form's submit event
-        form.addEventListener("submit", function (e) {
-          // Prevent the form from submitting the usual way and reloading the page
-          e.preventDefault();
-
-          // Collect all form data into a FormData object
-          const data = new FormData(form);
-
-          // Get the URL from the form's action attribute
-          const action = e.target.action;
-
-          // Send the form data to the server using the fetch API
-          fetch(action, {
-            method: "POST", // Use the POST method for the request
-            body: data, // Send the form data in the request body
-          }).then(() => {
-            // Show an alert to the user once the form is successfully submitted
-            alert("Confirmation was successfully sent!");
-          });
-        });
-      });
-    </script>
+   
     
     <!-- JavaScript для формы списка гостей -->
     <script>
@@ -441,7 +414,7 @@
     }
 
     // --------------------- Отправка в Google Sheets ---------------------
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzTwPu4GkEzsz0sA14l5f357fKot0AvzINK2KfQ29D1wV89jOD-Sj9A1Cv3J5s1xfNi/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxIAGR3UXb6Pnt7gr0srCMUpurEyQfcsqzwaiTzOSTJY1vFSAmbswqOE_aUdwZMRw3e/exec';
 
     document.getElementById('guestForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -449,58 +422,55 @@
   const form = this;
   const status = document.getElementById('status');
   status.textContent = 'Отправка...';
+  status.style.color = 'black';
 
-  const formData = new FormData(form);
-
-  // ── Обработка еды ───────────────────────────────────────────────
+  // Собираем данные формы
+  const formData = new URLSearchParams();
+  
+  // Собираем гостей
+  const firstNames = form.querySelectorAll('input[name="firstName[]"]');
+  const lastNames = form.querySelectorAll('input[name="lastName[]"]');
+  
+  for (let i = 0; i < firstNames.length; i++) {
+    formData.append('firstName[]', firstNames[i].value);
+    formData.append('lastName[]', lastNames[i].value);
+  }
+  
+  // Добавляем предпочтения
   const foodSelect = form.querySelector('#food_preference');
-  const foodOther  = form.querySelector('#food_other_container input');
-
-  if (foodSelect?.value) {
-    if (foodSelect.value === 'Другое' && foodOther?.value.trim()) {
-      formData.set('food_preference', foodOther.value.trim());  // ← перезаписываем!
-      formData.delete('food_other');                           // убираем мусор
-    } else {
-      formData.set('food_preference', foodSelect.value);
-    }
+  const foodOther = form.querySelector('#food_other_container input');
+  let foodValue = foodSelect.value;
+  
+  if (foodSelect.value === 'Другое' && foodOther && foodOther.value.trim()) {
+    foodValue = foodOther.value.trim();
   }
-
-  // ── Обработка алкоголя ──────────────────────────────────────────
+  
   const alcoholSelect = form.querySelector('#alcohol_preference');
-  const alcoholOther  = form.querySelector('#alcohol_other_container input');
-
-  if (alcoholSelect?.value) {
-    if (alcoholSelect.value === 'Другое' && alcoholOther?.value.trim()) {
-      formData.set('alcohol_preference', alcoholOther.value.trim());
-      formData.delete('alcohol_other');
-    } else {
-      formData.set('alcohol_preference', alcoholSelect.value);
-    }
+  const alcoholOther = form.querySelector('#alcohol_other_container input');
+  let alcoholValue = alcoholSelect.value;
+  
+  if (alcoholSelect.value === 'Другое' && alcoholOther && alcoholOther.value.trim()) {
+    alcoholValue = alcoholOther.value.trim();
   }
+  
+  if (foodValue) formData.append('food_preference', foodValue);
+  if (alcoholValue) formData.append('alcohol_preference', alcoholValue);
 
-  // Для отладки (можно потом убрать)
-  console.log('Отправляем в Google Sheets:');
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-  }
-
+  // Отправка
   fetch(scriptURL, {
     method: 'POST',
     body: formData
   })
-  .then(r => {
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.json();
-  })
+  .then(r => r.json())
   .then(data => {
     if (data.result === 'success') {
       status.style.color = 'green';
-      status.textContent = 'Гости успешно добавлены!';
+      status.textContent = data.message || 'Гости успешно добавлены!';
       form.reset();
       toggleFoodOther();
       toggleAlcoholOther();
     } else {
-      throw new Error(data.error || 'Неизвестный ответ');
+      throw new Error(data.message || 'Неизвестная ошибка');
     }
   })
   .catch(err => {
