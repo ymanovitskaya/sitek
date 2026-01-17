@@ -414,79 +414,55 @@
     }
 
     // --------------------- Отправка в Google Sheets ---------------------
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwqtB00oIhQm4HkTYqHb9Wz6QdxRm7ZGpiDZEqNp926lcpx4vVMCRk0wSOfTlq4uw/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxwkFCS0LqYXg_EoW-9fHMUdr53PojvygziqpSa8TyMZjpqXYktblW8K-kuYHvqtFyk/exec';
 
-    // Исправленная отправка формы
-document.getElementById('guestForm').addEventListener('submit', function(e) {
+    document.getElementById('guestForm').addEventListener('submit', function(e) {
   e.preventDefault();
   
-  const form = this;
   const status = document.getElementById('status');
   status.textContent = 'Отправка...';
   status.style.color = 'black';
 
   // Собираем данные
-  const formData = new FormData(form);
-  
-  // Для отладки - показываем что собираем
-  console.log('Собираем данные:');
-  
-  // Преобразуем FormData в обычный объект для наглядности
-  const data = {};
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-    
-    // Для массивов собираем все значения
-    if (key.endsWith('[]')) {
-      if (!data[key]) data[key] = [];
-      data[key].push(value);
-    } else {
-      data[key] = value;
-    }
-  }
-  
-  // Отправляем данные
+  const formData = new FormData(this);
+  const data = {
+    firstNames: formData.getAll('firstName[]'),
+    lastNames: formData.getAll('lastName[]'),
+    food_preference: formData.get('food_preference') || '',
+    food_other: formData.get('food_other') || '',
+    alcohol_preference: formData.get('alcohol_preference') || '',
+    alcohol_other: formData.get('alcohol_other') || ''
+  };
+
   fetch(scriptURL, {
     method: 'POST',
-    body: formData
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
   })
-  .then(response => {
-    console.log('Получен ответ от сервера');
-    return response.json();
-  })
-  .then(data => {
-    console.log('Ответ:', data);
-    if (data.result === 'success') {
-      status.style.color = 'green';
-      status.textContent = data.message || `Успешно добавлено ${data.count || 0} гостей!`;
-      
-      // Сброс формы, но оставляем первого гостя
-      const container = document.getElementById('guests-container');
-      while (container.children.length > 1) {
-        container.removeChild(container.lastChild);
-      }
-      
-      // Сбрасываем поля первого гостя
-      const firstGuest = container.children[0];
-      firstGuest.querySelector('input[name="firstName[]"]').value = '';
-      firstGuest.querySelector('input[name="lastName[]"]').value = '';
-      
-      // Сбрасываем селекты
-      form.querySelector('#food_preference').value = '';
-      form.querySelector('#alcohol_preference').value = '';
-      
-      // Скрываем поля "Другое"
-      toggleFoodOther();
-      toggleAlcoholOther();
-      
-    } else {
-      throw new Error(data.message || 'Ошибка сервера');
+  .then(() => {
+    status.style.color = 'green';
+    status.textContent = 'Успешно отправлено! Спасибо!';
+    
+    // Сброс формы
+    const container = document.getElementById('guests-container');
+    while (container.children.length > 1) {
+      container.removeChild(container.lastChild);
     }
+    const first = container.children[0];
+    first.querySelector('[name="firstName[]"]').value = '';
+    first.querySelector('[name="lastName[]"]').value = '';
+    document.getElementById('food_preference').value = '';
+    document.getElementById('alcohol_preference').value = '';
+    toggleFoodOther();
+    toggleAlcoholOther();
   })
   .catch(err => {
-    console.error('Ошибка отправки:', err);
+    console.error(err);
     status.style.color = 'red';
-    status.textContent = 'Ошибка: ' + err.message;
+    status.textContent = 'Ошибка: ' + (err.message || 'не удалось отправить');
   });
 });
     </script>
